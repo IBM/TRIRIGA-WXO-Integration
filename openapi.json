@@ -1,0 +1,461 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "FastAPI Wrapper for TRIRIGA API",
+    "description": "\nA wrapper written using Python FastAPI framework to access the TRIRIGA APIs.\n",
+    "version": "1.0.0",
+    "x-logo": {
+      "url": "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png"
+    }
+  },
+  "servers": [
+    {
+        "url": "https_endpoint"
+    }
+],
+  "paths": {
+    "/token": {
+      "post": {
+        "summary": "Login",
+        "operationId": "login_token_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_login_token_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "summary": "Read Users Me",
+        "operationId": "read_users_me_users_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Test App",
+        "operationId": "test_app__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/get_sr_request_categories/{user_name}": {
+      "get": {
+        "summary": "Get Sr Request Categories",
+        "operationId": "get_sr_request_categories_get_sr_request_categories__user_name__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                      "building_id": {
+                        "type": "string",
+                        "description": "Provides building ID"
+                      },
+                      "categories": {
+                          "type": "array",
+                          "description": "Categories list"
+                      }
+                  }
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_sr_request_services/{user_name}/{building_id}/{category_id}": {
+      "get": {
+        "summary": "Get Sr Request Services Based On Category",
+        "operationId": "get_sr_request_services_based_on_category_get_sr_request_services__user_name___building_id___category_id__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Name"
+            }
+          },
+          {
+            "name": "building_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Building Id"
+            }
+          },
+          {
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Category Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                      "building_id": {
+                        "type": "string",
+                        "description": "Provides building ID"
+                      },
+                      "services": {
+                          "type": "array",
+                          "description": "Services list"
+                      }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/create_sr": {
+      "post": {
+        "summary": "Create Service Request",
+        "operationId": "create_service_request_create_sr_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/service_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                      "display_result": {
+                          "type": "string",
+                          "description": "Provides service ticket link in html string"
+                      }
+                  }
+              }
+
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/getMyActiveRequests": {
+      "get": {
+        "summary": "Getmyactiverequests",
+        "operationId": "getMyActiveRequests_getMyActiveRequests_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "display_result": {
+                        "type": "string",
+                        "description": "Provides active service tickets"
+                    }
+                }
+              }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/get_requestclass": {
+      "get": {
+        "summary": "Get Request Class",
+        "operationId": "get_request_class_get_requestclass_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                      "members": {
+                          "type": "array",
+                          "description": "Members list"
+                      }
+                  }
+              }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_login_token_post": {
+        "properties": {
+          "grant_type": {
+            "type": "string",
+            "title": "Grant Type",
+            "description": "Grant type"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username",
+            "description": "The username of the user"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password",
+            "description": "The password of the user"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": "",
+            "description": "The scope of the user"
+          },
+          "client_id": {
+            "type": "string",
+            "title": "Client Id",
+            "description": "The client id of the user"
+          },
+          "client_secret": {
+            "type": "string",
+            "title": "Client Secret",
+            "description": "The client id of the user"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "Body_login_token_post"
+      },
+      "ValidationError": {
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "The error message"
+        }
+          }     
+        },
+      "service_request": {
+        "properties": {
+          "triDescriptionTX": {
+            "type": "string",
+            "title": "Tridescriptiontx"
+          },
+          "triCustomerOrgTX": {
+            "type": "string",
+            "title": "Tricustomerorgtx",
+            "default": "\\Organizations\\DEFAULT Workgroup (for Default Service Plans)"
+          },
+          "action": {
+            "type": "string",
+            "title": "Action",
+            "default": "Create Draft"
+          },
+          "triOperationTX": {
+            "type": "string",
+            "title": "Trioperationtx",
+            "default": "Create"
+          },
+          "triBuildingTX": {
+            "type": "string",
+            "title": "Tribuildingtx",
+            "default": "Test Building"
+          },
+          "triRequestForLI": {
+            "type": "string",
+            "title": "Trirequestforli",
+            "default": "Someone Else"
+          },
+          "triRequestClassCL": {
+            "type": "string",
+            "title": "Trirequestclasscl",
+            "default": "Lights Out"
+          },
+          "triRequestClassRecordIDTX": {
+            "type": "string",
+            "title": "Trirequestclassrecordidtx",
+            "default": "2270583"
+          },
+          "triServiceRequestFormTX": {
+            "type": "string",
+            "title": "Triservicerequestformtx",
+            "default": "Electrical & Lighting"
+          },
+          "triUserNameTX": {
+            "type": "string",
+            "title": "triUserNameTX"
+          }
+        },
+        "type": "object",
+        "required": [
+          "triDescriptionTX",
+          "triUserNameTX"
+        ],
+        "title": "service_request"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "scopes": {
+
+            },
+            "tokenUrl": "https_endpoint/token"
+            }
+        }
+      }
+    }
+  }
+}
